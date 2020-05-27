@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Witamy w serwisie";
+}
+
+    <div class="container">
+        @if (User.Identity.IsAuthenticated)
+        {
+            
+
+            <div class="text-center my-3">
+                <h1 class="display-4">Witamy</h1>
+                <h4 class="text-center my-2"> w serwisie internetowym</h4>
+                <img src="~/img/logo_medium.png" alt="WakeApp" width="320" height="180" style="opacity:0.75">
+            </div>
+            <h5 class="text-center my-4">Zarządzaj swoimi urządzeniami za pomocą strony internetowej</h5>
+            <div class="container mt-5">
+                <div class="row row-cols-2">
+                    <div class="col">
+                        <!-- Card Narrower -->
+                        <div class="card card-cascade narrower">
+                            <!-- Card image -->
+                            <div class="view view-cascade overlay">
+                                <a class="btn btn-lg btn-block" asp-area="" asp-controller="Device" asp-action="Index">
+                                    <i class="material-icons" style="font-size:100px">devices_other</i>
+                                </a>
+                            </div>
+                            <!-- Card content -->
+                            <div class="card-body-1 card-body-cascade text-center">
+                                <h6 class="text-center pb-2"><strong>Urządzenia</strong></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- Card Narrower -->
+                        <div class="card card-cascade narrower">
+                            <!-- Card image -->
+                            <div class="view view-cascade overlay">
+                                <a class="btn btn-lg btn-block" asp-controller="Alarm" asp-action="Index">
+                                    <i class="material-icons" style="font-size:100px">access_alarms</i>
+                                </a>
+                            </div>
+                            <!-- Card content -->
+                            <div class="card-body-1 card-body-cascade text-center">
+                                <h6 class="text-center pb-2"><strong>Alarmy</strong></h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <h5 class="text-center my-3">lub</h5>
+            <h5 class="text-center">
+                pobierz aplikację na urządzenie z systemem Android
+                <a class="btn" href="https://drive.google.com/file/d/1Rvf8acW6QtbJSBwKCpT4jGSgmMJLJii4/view?usp=sharing" data-toggle="tooltip" data-placement="bottom" title="Pobierz aplikację na Androida">
+                    <i class="fa fa-android" style="font-size:36px"></i>
+                </a>
+            </h5>
+
+        }
+        else
+        {
+            <div class="text-center my-5">
+                <h1 class="display-4">Witamy</h1>
+                <h4 class="text-center my-2"> w serwisie internetowym</h4>
+                <img src="~/img/logo_medium.png" alt="WakeApp" width="320" height="180" style="opacity:0.75">
+            </div>
+            <h5 class="text-center my-5">Zarządzaj swoimi urządzeniami za pomocą strony internetowej</h5>
+            <h5 class="text-center my-3">lub</h5>
+            <h5 class="text-center">
+                pobierz aplikację na urządzenie z systemem Android
+                <a class="btn" href="https://drive.google.com/file/d/1Rvf8acW6QtbJSBwKCpT4jGSgmMJLJii4/view?usp=sharing" data-toggle="tooltip" data-placement="bottom" title="Pobierz aplikację na Androida">
+                    <i class="fa fa-android" style="font-size:36px"></i>
+                </a>
+            </h5>
+        }
+    </div>

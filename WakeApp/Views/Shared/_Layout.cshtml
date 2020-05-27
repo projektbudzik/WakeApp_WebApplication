@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WakeApp</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link rel="stylesheet" href="~/site.css" />
+    <link rel="stylesheet" href="~/css/cookieinfo.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" data-toggle="tooltip" data-placement="bottom" title="projektbudzik.pl">
+                    <img src="~/img/logo_small.png" width="30" height="30" class="d-inline-block align-top" alt="" />
+                    WakeApp
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <form class="form-inline">
+                                    <button class="btn font-weight-bold" asp-area="" asp-controller="Device" asp-action="Index">
+                                        <i class="material-icons">devices_other</i>
+                                        Urządzenia
+                                    </button>
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline">
+                                    <button class="btn font-weight-bold" asp-controller="Alarm" asp-action="Index">
+                                        <i class="material-icons">access_alarms</i>
+                                        Alarmy
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <form class="form-inline">
+                                    <a class="btn" href="https://drive.google.com/file/d/1Rvf8acW6QtbJSBwKCpT4jGSgmMJLJii4/view?usp=sharing" data-toggle="tooltip" data-placement="bottom" title="Pobierz aplikację na Androida">
+                                        <i class="fa fa-android" style="font-size:24px"></i>
+                                    </a>
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline">
+                                    <button class="btn" asp-controller="Contact" asp-action="Index" data-toggle="tooltip" data-placement="bottom" title="Kontakt">
+                                        <i class="material-icons" style="font-size:24px">headset_mic</i>
+                                    </button>
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline">
+                                    <button class="btn" asp-controller="Account" asp-action="Login">
+                                        <i class="fa fa-user-circle-o"></i>
+                                        Zaloguj się
+                                    </button>
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline">
+                                    <button class="btn" asp-controller="Account" asp-action="Register">
+                                        <i class="fa fa-user-plus"></i>
+                                        Rejestracja
+                                    </button>
+
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="btn" href="https://drive.google.com/file/d/1Rvf8acW6QtbJSBwKCpT4jGSgmMJLJii4/view?usp=sharing" data-toggle="tooltip" data-placement="bottom" title="Pobierz aplikację na Androida">
+                                    <i class="fa fa-android" style="font-size:24px"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline">
+                                    <button class="btn" asp-controller="Contact" asp-action="Index" data-toggle="tooltip" data-placement="bottom" title="Kontakt">
+                                        <i class="material-icons" style="font-size:24px">headset_mic</i>
+                                    </button>
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline">
+                                    <button class="btn" asp-controller="Account" asp-action="Logout">
+                                        <i class="fa fa-power-off"></i>
+                                        Wyloguj się
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </nav>
+
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer border-top bg-white">
+        <div class="container">
+            <div class="row text-center d-flex justify-content-center pt-4 mb-1">
+                <div class="col-4 col-md-2">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a asp-area="" asp-controller="Home" asp-action="AboutUs">O nas</a>
+                    </h6>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a asp-area="" asp-controller="Home" asp-action="Privacy">Polityka prywatności</a>
+                    </h6>
+                </div>
+                <div class="col-4 col-md-2">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a asp-area="" asp-controller="Home" asp-action="Help">Pomoc</a>
+                    </h6>
+                </div>
+                <div class="col-4 col-md-2">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a asp-area="" asp-controller="Contact" asp-action="Index">Kontakt</a>
+                    </h6>
+                </div>
+                <div class="col-4 col-md-2">
+                    <h6 class="text-uppercase font-weight-bold">
+                        <a href="https://github.com/projektbudzik" data-toggle="tooltip" data-placement="bottom" title="github.com">
+                            <i class="fa fa-github" style="font-size:36px"></i>
+                        </a>
+                    </h6>
+                </div>
+            </div>
+            <hr class="rgba-white-light" style="margin: 0 10%;">
+            <div class="footer-copyright text-center py-2">
+                &copy; WakeApp - Projekt zespołowy pracy dyplomowej studentów Wydziału Informatyki PJATK Gdańsk <img src="~/img/pjatk.png" width="40" height="40"/>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/js/cookieinfo.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

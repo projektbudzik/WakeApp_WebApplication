@@ -1,0 +1,146 @@
+﻿@model ContactViewModel
+@{
+    ViewData["Title"] = "Kontakt";
+}
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<link rel="stylesheet" href="~/css/contactPage.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<section class="my-5">
+    <h2 class="h1-responsive font-weight-bold ">Kontakt</h2>
+    <hr />
+
+    <div class="row" style="background-color:white; padding:30px 10px 30px 10px">
+        @if (ViewBag.Message == null)
+        {
+            <div class="col-lg-5 mb-lg-0 mb-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-header blue accent-1">
+                            <h3 class="mt-2"><i class="fa fa-telegram" style="color:steelblue"></i> Wyślij nam wiadomość</h3>
+                        </div>
+                        <p class="dark-grey-text">Odpiszemy tak szybko jak tylko możemy.</p>
+                        <form method="post">
+                            <div class="form-group">
+                                <label asp-for="Name">Imię *</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email">Email *</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Phone">Telefon</label>
+                                <input asp-for="Phone" class="form-control" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Subject">Temat *</label>
+                                <input asp-for="Subject" class="form-control" />
+                                <span asp-validation-for="Subject" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Message">Wiadomość *</label>
+                                <textarea rows="5" cols="15" asp-for="Message" class="form-control"></textarea>
+                                <span asp-validation-for="Message" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Wyślij</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-7">
+                <!--Google map-->
+                <div id="map-container-section" class="z-depth-1-half map-container-section mb-4" style="height: 400px">
+                    <iframe src="https://maps.google.com/maps?q=Polsko-Japońska+Akademia+Technik+Komputerowych&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                            style="border:0" allowfullscreen></iframe>
+                </div>
+                <!-- Buttons-->
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <i class="fa fa-map-marker" style="font-size:48px;color:steelblue"></i>
+                        <p>Adres:</p>
+                        <p class="mb-md-0">ul. Brzegi 55</p>
+                        <p>80-045 Gdańsk</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fa fa-clock-o" style="font-size:48px;color:steelblue"></i>
+                        <p>Godziny pracy:</p>
+                        <p class="mb-md-0">Pn - Pt  08:00 - 21:00</p>
+                        <p>Sob - Nd  08:00 - 16:00</p>
+                    </div>
+                    <div class="col-md-4">
+                        <a class="btn-floating blue accent-1">
+                            <i class="fa fa-wrench" style="font-size:48px;color:steelblue"></i>
+                        </a>
+                        <p>Wsparcie Techniczne:</p>
+                        <p class="mb-0">+ 01 234 567 89</p>
+                        <p>projektbudzik@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div>
+        @if (ViewBag.Message != null)
+        {
+            <h4 class="h1-responsive font-weight-bold text-center my-5">@ViewBag.Message</h4>
+        }
+    </div>
+</section>
+
+
+
+<script>
+    function RunAjax() {
+        var content = $('#message_text').val();
+        var user_mail = $('#email').val();
+        var name = $('#name').val();
+        //var uri = "/umbraco/api/EmailContactApi/CreateNewEmail";
+        $(document).ready(function () {
+            if (user_mail == "" && !ValidateEmail(user_mail)) {
+                $(".message").text("E-mail field is required!");
+            }
+            else if (content.length > 1060) {
+                $(".message").text("Ze względów bezpieczeństwa serwer nie przyjmuje wiadomości zawierających więcej niż 1000 znaków. W przypadku dłuższych wiadomości wyślij wiadomość e-mail na nasz adres.");
+            }
+            else {
+                //Send an AJAX request
+                $.getJSON(uri + "?user_mail=" + user_mail + "&name=" + name + "&content=" + content)
+                    .done(function (data) {
+                        var info = data == true ? "Yeah! Message sent!" : "Something went wrong";
+                        $(".information").text(info);
+                        if (data == true) {
+                            $('#submit').hide();
+                            $('#hide0').attr('readonly', true);
+                            $('#exampleInputEmail1').attr('readonly', true);
+                            $('#hide1').attr('readonly', true);
+                            $(".message").text("Dziękujemy za wiadomość! Odpiszemy tak szybko jak tylko to możliwe.");
+                            $alert("Dziękujemy za wiadomość! Odpiszemy tak szybko jak tylko to możliwe.");
+                        }
+                        else {
+                            $('#spinner').hide();
+                            $('#Button0').show();
+                            $(".message").text("Coś poszło nie tak. Sprawdź, czy podałeś prawidłowy adres e-mail, lub bezpośrednio wyślij wiadomość e-mail na nasz adres.");
+                        }
+                    });
+            }
+        });
+    }
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,123 @@
+﻿@model WakeApp.Models.AlarmViewModel
+
+@{
+    ViewData["Title"] = "Edytuj alarm";
+}
+
+<section class="my-5">
+    <h2 class="h1-responsive font-weight-bold ">Edytuj alarm</h2>
+    <hr />
+
+    <div class="row" style="background-color:white; padding:30px 10px 30px 10px">
+        <div class="col-lg-5 mb-lg-0 mb-4">
+
+            <div class="card" style="border:0">
+                <div class="col-md-10">
+                    <form asp-action="Edit">
+                        <input type="hidden" asp-for="AlarmId" />
+                        <input type="hidden" asp-for="DeviceId" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="DateStart" class="control-label"></label>
+                            <input asp-for="DateStart" class="form-control" />
+                            <span asp-validation-for="DateStart" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Time" class="control-label"></label>
+                            <input asp-for="Time" class="form-control" />
+                            <span asp-validation-for="Time" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="repeat-checkbox" asp-for="Repeat" />
+                            <label asp-for="Repeat">Powtórz</label>
+                            <span asp-validation-for="Repeat" class="text-danger"></span>
+                        </div>
+                        <div class="repeat-div" style="display:none">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <input asp-for="Monday" />
+                                        <label asp-for="Monday">Poniedziałek</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input asp-for="Tuesday" />
+                                        <label asp-for="Tuesday">Wtorek</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input asp-for="Wednesday" />
+                                        <label asp-for="Wednesday">Środa</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input asp-for="Thursday" />
+                                        <label asp-for="Thursday">Czwartek</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input asp-for="Friday" />
+                                        <label asp-for="Friday">Piątek</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input asp-for="Saturday" />
+                                        <label asp-for="Saturday">Sobota</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input asp-for="Sunday" />
+                                        <label asp-for="Sunday">Niedziela</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="DateEnd" class="control-label"></label>
+                                <input asp-for="DateEnd" class="form-control" />
+                                <span asp-validation-for="DateEnd" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Comment"></label>
+                            <textarea asp-for="Comment" rows="3" class="form-control"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Zapisz" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-auto mx-auto">
+            <img src="~/img/logo.png" class="center-block img-responsive" width="350" height="350" />
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+            $(function () {
+                let repeat = '@Model.Repeat' == 'True';
+                if (repeat) {
+                    $('.repeat-div').show();
+                } else {
+                    $('.repeat-div').hide();
+                }
+
+                $(".repeat-checkbox").change(function () {
+                    $(".repeat-div").toggle();
+                });
+            });
+    </script>
+}

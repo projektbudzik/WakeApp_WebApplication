@@ -1,0 +1,73 @@
+﻿@model IEnumerable<WakeApp.Model.Device>
+
+@{
+    ViewData["Title"] = "Lista urządzeń";
+}
+
+
+<section class="my-5">
+    <h2 class="h1-responsive font-weight-bold ">
+        <i class="material-icons" style="font-size:50px">devices_other</i> Lista urządzeń
+    </h2>
+    <hr />
+
+    <div class="row" style="background-color:white; padding:30px 10px 30px 10px">
+        <div class="form-group btn-block">
+            <a class="btn btn-success btn-sm" asp-action="Create">
+                <i class="fa fa-plus" style="color:white"></i>
+                Dodaj
+            </a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Nazwa
+                    </th>
+                    <th>
+                        Rodzaj urządzenia
+                    </th>
+                    <th>
+                        Użytkownik
+                    </th>
+                    <th>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeviceType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.Name)
+                        </td>
+
+                        <td>
+                            <div class="form-group btn-block">
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.DeviceId">
+                                    <i class="fa fa-trash" style="color:white"></i>
+                                    Usuń
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group btn-block">
+                                <a class="btn btn-dark btn-sm" a asp-action="Index" asp-controller="Alarm" asp-route-deviceId="@item.DeviceId">
+                                    <i class="material-icons" style="font-size:18px;color:white">access_alarms</i>
+                                    Alarmy
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

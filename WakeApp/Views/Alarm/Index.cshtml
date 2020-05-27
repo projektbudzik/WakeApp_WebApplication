@@ -1,0 +1,91 @@
+﻿@model IEnumerable<WakeApp.Model.Alarm>
+
+@{
+    ViewData["Title"] = "Lista alarmów";
+}
+
+
+<section class="my-5">
+    <h2 class="h1-responsive font-weight-bold ">
+        <i class="material-icons" style="font-size:50px">access_alarms</i> Lista alarmów
+    </h2>
+    <hr />
+
+    <div class="row" style="background-color:white; padding:30px 10px 30px 10px">
+        <div class="form-group btn-block">
+            <a class="btn btn-success btn-sm" asp-action="Create">
+                <i class="fa fa-plus" style="color:white"></i>
+                Dodaj
+            </a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Urządzenie
+                    </th>
+                    <th>
+                        Data rozpoczęcia
+                    </th>
+                    <th>
+                        Czas
+                    </th>
+                    <th>
+                        Data zakończenia
+                    </th>
+                    <th>
+                        Powtórz
+                    </th>
+                    <th>
+                        Komentarz
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @( $"{item.Device?.User?.Name} - {item?.Device?.DeviceType}")
+                        </td>
+                        <td>
+                            @item.DateStart.ToString("yyyy-MM-dd")
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+
+                        <td>
+                            @item.DateEnd?.ToString("yyyy-MM-dd")
+                        </td>
+                        <td>
+                            @(item.DecodedSequence)
+                        </td>
+                        <td>
+                            @(item.Comment)
+                        </td>
+                        <td>
+                            <div class="form-group btn-block">
+                                <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.AlarmId">
+                                    <i class="fa fa-edit" style="color:white"></i>
+                                    Edytuj
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group btn-block">
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.AlarmId">
+                                    <i class="fa fa-trash" style="color:white"></i>
+                                    Usuń
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

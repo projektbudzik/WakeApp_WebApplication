@@ -1,0 +1,1 @@
+﻿SELECT * FROM `alarm` WHERE (`Sequence`like CONCAT('%', WEEKDAY(CURDATE())+1, '%') AND `DateStart` < CURDATE() AND `DateEnd` >= CURDATE() and Time > CURTIME())	OR (`Sequence` IS NULL and `DateStart` = CURDATE() and Time > CURTIME()) ORDER BY `Time` DESC LIMIT 0, 1

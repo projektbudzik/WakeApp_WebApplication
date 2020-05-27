@@ -1,0 +1,103 @@
+﻿@model WakeApp.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Rejestracja";
+}
+
+
+<section class="my-5">
+    <h2 class="h1-responsive font-weight-bold ">
+        <i class="fa fa-user-plus" style="font-size:50px"></i> Rejestracja użytkownika
+    </h2>
+    <hr />
+
+    <div class="row" style="background-color:white; padding:30px 10px 30px 10px">
+        <div class="col-lg-5 mb-lg-0 mb-4">
+
+            <div class="card" style="border:0">
+                <div class="col-md-10">
+                    <form asp-action="Register">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword" class="control-label"></label>
+                            <input asp-for="ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input join-group" asp-for="CreateNewGroup" value="false" checked /> Dołącz do grupy
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input new-group" asp-for="CreateNewGroup" value="true" /> Utwórz nową grupę
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="GroupName" class="control-label"></label>
+                                <input asp-for="GroupName" class="form-control" />
+                                <span asp-validation-for="GroupName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="GroupPassword" class="control-label"></label>
+                                <input asp-for="GroupPassword" class="form-control" />
+                                <span asp-validation-for="GroupPassword" class="text-danger"></span>
+                            </div>
+                            <div class="form-group group-confirm-password">
+                                <label asp-for="GroupConfirmPassword" class="control-label"></label>
+                                <input asp-for="GroupConfirmPassword" class="form-control" />
+                                <span asp-validation-for="GroupConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Zarejestruj się" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-auto mx-auto">
+            <img src="~/img/logo.png" class="center-block img-responsive" width="350" height="350" />
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(function () {
+            let newGroup = '@Model.CreateNewGroup' == 'True';
+            if (newGroup) {
+                $('.group-confirm-password').show();
+            } else {
+                $('.group-confirm-password').hide();
+            }
+
+            $('.join-group').change(function () {
+                $('.group-confirm-password').hide();
+            });
+            $('.new-group').change(function () {
+                $('.group-confirm-password').show();
+            });
+        });
+    </script>
+}
